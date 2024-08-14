@@ -1,0 +1,19 @@
+
+
+= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  = f.error_notification
+  .list
+    .list-group-item
+      span = icon('far', 'user')
+      = f.input_field :email, placeholder: 'Email', required: false, autofocus: true, class: 'form-control no-border list-width'
+    .list-group-item
+      span = icon('fas', 'lock') 
+      = f.input_field :password, placeholder: 'Senha', required: true, class: 'form-control no-border list-width'
+    .list-group-item
+      span = icon('fas', 'lock') 
+      = f.input_field :password_confirmation, placeholder: 'Confirmação de Senha', required: true, class: 'form-control no-border list-width'
+    = f.button :submit, "Cadastrar", class: 'btn btn-lg btn-login btn-block' 
+
+
+
+

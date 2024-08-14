@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   root to: 'admin/dashboard#index'
  
 
-  devise_for :user, path: 'admin'
+  devise_for :user, path: 'admin', controllers: {
+    registrations: 'admin/registrations'
+  }
   namespace :admin do
     resources :users
 

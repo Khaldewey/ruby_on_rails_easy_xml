@@ -51,9 +51,10 @@ html lang="pt-BR"
                         = icon('fas', 'tachometer-alt')
                         span.font-bold Dashboard
 
-                      = nav_link_to admin_users_path, {:class => 'menu_link'}, {:wrapper => 'li', :wrapper_class => 'item_menu', :selected_class => 'active', :url_segment => 2 }
-                        = icon('far', 'user')
-                        span.font-bold Usuários
+                      - unless current_user.id != 1
+                        = nav_link_to admin_users_path, {:class => 'menu_link'}, {:wrapper => 'li', :wrapper_class => 'item_menu', :selected_class => 'active', :url_segment => 2 }
+                          = icon('far', 'user')
+                          span.font-bold Usuários
 
                                                    
                 footer.footer.hidden-xs.no-padder.text-center-nav-xs
