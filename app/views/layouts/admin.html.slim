@@ -36,6 +36,9 @@ html lang="pt-BR"
               ul.dropdown-menu.animated.fadeInRight
                 li
                   = link_to "Logout", destroy_user_session_path, :method => :delete, :data => { :toggle => "ajaxModal"}
+                - if current_user.id != 1
+                  li
+                    = link_to "Editar Senha", admin_edit_password_path
                 
       section
         section.hbox.stretch
