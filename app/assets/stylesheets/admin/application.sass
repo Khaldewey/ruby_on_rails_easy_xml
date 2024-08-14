@@ -1,0 +1,228 @@
+@import bootstrap-sprockets
+@import bootstrap
+@import bootstrap-datetimepicker
+@import font-awesome-sprockets
+@import font-awesome
+@import app
+@import icon
+@import nestable
+@import chosen
+@import bootstrap_calendar
+@import toastr
+@import jquery.plupload.queue
+@import "http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"
+
+\*:focus
+  :outline 0 !important
+
+abbr[title]
+  :border none !important
+
+.scrollable
+  :min-height 730px
+
+input[type=checkbox], input[type=radio]
+  width: 14px
+
+.name-business
+  @extend .navbar-brand
+  :margin 80px 0 30px 0
+  :color #3C4144
+
+.animated 
+  margin-top: 2.3rem
+  margin-left: 1rem
+  
+#uploader
+  :width 100%
+
+#gallery_images
+  :margin 20px 0
+  :width 100%
+
+  .gallery-image
+    :width 176px
+    :position relative
+    :margin 10px 4px 0
+
+  .remove-image
+    :top 3px
+    :right 8px
+    :position absolute
+    :font-size 18px
+    :background #fff
+    :color red
+    :padding 5px
+
+.plupload_filelist_footer
+  :height 42px
+  :margin-bottom 10px
+
+.plupload_header
+  :background #1aae88
+
+  .plupload_header_content
+    :background-image unset
+    :padding-left 10px
+
+.mt-25
+  :margin-top 25px
+
+.links-actions
+  a
+    :margin 0 5px
+
+.mr-10
+  :margin-right 10px
+
+.mr-20
+  :margin-right 20px
+
+.navbar-brand
+  :width 200px
+
+.logo-target
+  :width 100%
+
+.table > thead > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > th,
+.table > tbody > tr > td,
+.table > tfoot > tr > th,
+.table > tfoot > tr > td
+  :border 1px solid #EAEEF1
+
+.table
+  td
+    :vertical-align middle !important
+
+.panel
+  .table-striped
+    thead
+      th:last-child
+        :border-right solid 1px #eaeef1
+
+.gallery-img
+  .dd3-content
+    :height 156px
+
+.banners-dd3-content
+  .dd3-content
+    :height 280px
+
+.edit_banner
+  :margin-left 20px
+  .form-group
+    :float left
+    :width 100%
+
+.ml-15
+  :margin-left 15px
+
+.navbar-brand
+  img
+    :margin-top 13px
+
+.notice, .alert
+  display: none !important
+
+.bootstrap-filestyle
+  float: left
+  margin-top: 15px
+  width: 100%
+
+.remove-image-label
+  margin-left: 18%
+
+.remove-image-checkbox
+  margin-right: 5px !important
+
+.plan-change-status
+  :color #FFF 
+
+.help-block
+  color: #bf1e2a
+.html-devise
+  color: #f12123
+  background: #d9a454
+
+  .btn-login
+    color: #fff !important
+    background: #d9a454
+    border-radius: 10px
+
+  .user-img
+    img
+      width: 100%
+
+  .logo-image
+    img
+      max-width: 150px
+
+  .password-area
+    display: flex
+    justify-content: space-between
+    margin-top: 20px
+    .text-left
+      font-size: medium
+      input[type=checkbox]
+        width: 20px
+        margin: 0px 0 0
+        &:checked
+          background-color: red
+    .text-right
+      a
+        color: #d3bdbf
+        .small
+          font-size: medium
+         
+  .list-group-item
+    margin: 15px 0
+    border-radius: 10px
+    display: flex
+    align-items: center
+    background: #d9a454
+    padding-bottom: 0px
+    padding-right: 0px
+    padding-top: 0px
+    &:first-child
+      border-radius: 10px
+    span
+      width: 35px
+      color: #ffffff
+      font-size: 20px
+    .list-width
+      height: 46px
+      border-bottom-right-radius: 10px
+      border-top-right-radius: 10px
+
+
+  .corp-info
+    color: #ffffff
+    float: left
+    width: 100%
+    font-size: 16px
+    text-align: center
+    span
+      padding-right: 5px
+    a
+      color: #ffffff
+    .corp-social
+      display: flex
+      justify-content: space-evenly
+      margin-top: 7px
+
+
+@media (max-width: 767px)
+  .banners-dd3-content
+    .dd3-content
+      :height auto
+
+  .trash
+    :position relative
+    :margin-top -35px
+  
+  .edit_banner
+    :margin-left -10px
+    :margin-top 12px
+

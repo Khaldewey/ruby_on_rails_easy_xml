@@ -1,0 +1,3 @@
+- if can? :show, resource_class
+  = link_to resource_path(r), class: 'btn btn-success', title: 'Imagens', data: { toggle: 'tooltip'} do
+    = icon('far', 'image')

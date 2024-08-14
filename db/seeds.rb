@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+namespace :dev do
+  User.find_or_create_by(email: 'desenvolvimento@easy.xml') do |u|
+    u.password = '-, 8?Wgc-_j<np#~'
+  end
+end

@@ -1,0 +1,82 @@
+doctype html
+html lang="pt-BR"
+  head
+    meta charset="utf-8"
+    meta name="robots" content="noindex"
+    meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"
+    meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"
+    title= content_for?(:title) ? yield(:title) : "Easy XML 1.0"
+
+    = stylesheet_link_tag "admin/application", media: "all"
+    = javascript_include_tag "admin/application"
+
+    = csrf_meta_tags
+    /[if lt IE 9]
+      = javascript_include_tag 'html5shiv-printshiv'
+
+  body
+    section.vbox
+      header.bg-white.header.header-md.navbar.navbar-fixed-top-xs.box-shadow
+        - flash.each do |name, msg|
+          p(class="#{name}")= msg         
+        .navbar-header.aside-md.dk
+          a.btn.btn-link.visible-xs data-target="#nav,html" data-toggle="class:nav-off-screen,open"
+            = icon('far', 'bars')
+          = link_to admin_root_path, class: 'navbar-brand' do
+            = image_tag 'logo-target.svg', class: 'logo-target'
+            /span.hidden-nav-xs Agência Acerte
+          a.btn.btn-link.visible-xs data-target=".user" data-toggle="dropdown"
+            i.fa.fa-cog
+        ul.nav.navbar-nav.navbar-right.m-n.hidden-xs.nav-user.user
+
+          li.dropdown
+            a.dropdown-toggle data-toggle="dropdown" href="#"
+
+              - if user_signed_in?
+                = current_user.email
+              b.caret
+            - if user_signed_in?
+              ul.dropdown-menu.animated.fadeInRight
+                li
+                  = link_to "Logout", destroy_user_session_path, :method => :delete, :data => { :toggle => "ajaxModal"}
+                
+      section
+        section.hbox.stretch
+          /! .aside
+          aside#nav.bg-black.aside-md.hidden-print.hidden-xs
+            section.vbox
+              section.w-f.scrollable
+                .slim-scroll data-disable-fade-out="true" data-distance="0" data-height="auto" data-railopacity="0.2" data-size="10px"
+                  nav.nav-primary.hidden-xs
+                    .text-muted.text-sm.hidden-nav-xs.padder.m-t-sm.m-b-sm Easy XML
+                    ul.nav.nav-main data-ride="collapse"
+                      = nav_link_to admin_root_path, {:class => 'menu_link'}, {:wrapper => 'li', :wrapper_class => 'item_menu', :selected_class => 'active'} do
+                        = icon('fas', 'tachometer-alt')
+                        span.font-bold Dashboard
+
+                      = nav_link_to admin_users_path, {:class => 'menu_link'}, {:wrapper => 'li', :wrapper_class => 'item_menu', :selected_class => 'active', :url_segment => 2 }
+                        = icon('far', 'user')
+                        span.font-bold Usuários
+
+                                                   
+                footer.footer.hidden-xs.no-padder.text-center-nav-xs
+                  a.btn.btn-icon.icon-muted.btn-inactive.m-l-xs.m-r-xs data-toggle="class:nav-xs" href="#nav"
+                    .text
+                      = icon('fas', 'reply')
+                    .text-active
+                      = icon('fas', 'share')
+          section#content
+            section.hbox.stretch
+              section
+                section.vbox
+                  section.scrollable.padder
+                    section.row.m-b-md
+                      .col-md-12
+                        = yield
+            footer
+              .container
+                .col-sm-6.col-sm-offset-3
+                  .pull-left
+                    | &copy; #{Date.today.year} | Todos os direitos reservados.
+                  .pull-right
+                    | v #{EasyXml::Application.config.version}

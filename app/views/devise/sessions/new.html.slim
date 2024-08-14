@@ -1,0 +1,21 @@
+= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  .list-group
+    .list-group-item
+      span = icon('far', 'user')
+      = f.input_field :email,placeholder: 'Email', required: false, autofocus: true, class: 'form-control no-border list-width'
+    .list-group-item
+      span = icon('fas', 'lock') 
+      = f.input_field :password, placeholder: 'Senha', required: false, class: 'form-control no-border list-width'
+    = f.button :submit, "LOGIN", class: 'btn btn-lg btn-login btn-block'
+    /.password-area
+      - if devise_mapping.rememberable?
+        .text-right
+          = link_to new_password_path(resource_name) do
+            .small
+              | Esqueci a Senha
+
+
+
+
+
+

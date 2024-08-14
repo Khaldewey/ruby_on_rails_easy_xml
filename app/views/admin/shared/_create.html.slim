@@ -1,0 +1,5 @@
+= link_to 'Adicionar', new_resource_path, class: "btn btn-primary btn-lg"
+.clearfix
+
+.text-center
+  = will_paginate(collection, renderer: 'ApplicationHelper::LinkRenderer', class: 'pagination pagination-lg')

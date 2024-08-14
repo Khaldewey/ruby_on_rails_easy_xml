@@ -41,7 +41,6 @@ gem 'ransack'
 
 gem 'devise-i18n'
 
-gem 'cancancan', '~> 2.0'
 #
 gem 'simple_form'
 #

@@ -1,5 +1,7 @@
 {
   "name": "easy_xml",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "easy_xml": "file:"
+  }
 }

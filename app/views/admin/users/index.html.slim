@@ -1,0 +1,15 @@
+h2 Usuários
+.panel.panel-default
+  .table-responsive
+    table.table.table-striped.b-t.b-light
+      thead
+        tr
+          th.text-center E-mail
+          th.text-center(width=210) Ações
+      tbody    
+        - collection.each do |r|
+          tr
+            td.text-center= r.email
+            td.text-center.links-actions
+              = render 'admin/shared/actions', r: r
+= render 'admin/shared/create'
