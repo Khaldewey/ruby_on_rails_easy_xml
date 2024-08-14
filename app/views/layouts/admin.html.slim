@@ -11,8 +11,6 @@ html lang="pt-BR"
     = javascript_include_tag "admin/application"
 
     = csrf_meta_tags
-    /[if lt IE 9]
-      = javascript_include_tag 'html5shiv-printshiv'
 
   body
     section.vbox
@@ -24,7 +22,6 @@ html lang="pt-BR"
             = icon('far', 'bars')
           = link_to admin_root_path, class: 'navbar-brand' do
             = image_tag 'logo-target.svg', class: 'logo-target'
-            /span.hidden-nav-xs Agência Acerte
           a.btn.btn-link.visible-xs data-target=".user" data-toggle="dropdown"
             i.fa.fa-cog
         ul.nav.navbar-nav.navbar-right.m-n.hidden-xs.nav-user.user
