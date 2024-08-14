@@ -21,7 +21,7 @@ html lang="pt-BR"
           a.btn.btn-link.visible-xs data-target="#nav,html" data-toggle="class:nav-off-screen,open"
             = icon('far', 'bars')
           = link_to admin_root_path, class: 'navbar-brand' do
-            = image_tag 'logo-target.svg', class: 'logo-target'
+            p EasyXml
           a.btn.btn-link.visible-xs data-target=".user" data-toggle="dropdown"
             i.fa.fa-cog
         ul.nav.navbar-nav.navbar-right.m-n.hidden-xs.nav-user.user
@@ -48,7 +48,7 @@ html lang="pt-BR"
               section.w-f.scrollable
                 .slim-scroll data-disable-fade-out="true" data-distance="0" data-height="auto" data-railopacity="0.2" data-size="10px"
                   nav.nav-primary.hidden-xs
-                    .text-muted.text-sm.hidden-nav-xs.padder.m-t-sm.m-b-sm Easy XML
+                    .text-muted.text-sm.hidden-nav-xs.padder.m-t-sm.m-b-sm 
                     ul.nav.nav-main data-ride="collapse"
                       = nav_link_to admin_root_path, {:class => 'menu_link'}, {:wrapper => 'li', :wrapper_class => 'item_menu', :selected_class => 'active'} do
                         = icon('fas', 'tachometer-alt')

@@ -1,0 +1,10 @@
+
+
+  = form_with url: upload_admin_documents_path, local: true, html: { multipart: true, :class => 'form-horizontal'} do |form|
+    section.xml-input
+      .panel-body  
+        = form.label :file, "Escolha o arquivo XML"
+        = form.file_field :file, accept: 'application/xml'
+      hr
+      = form.submit "Enviar", class: "btn-xml"
+    
