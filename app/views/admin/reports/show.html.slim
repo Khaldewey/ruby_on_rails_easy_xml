@@ -1,0 +1,23 @@
+section.panel.panel-default
+    header.panel-heading.font-bold
+     = "Detalhes do arquivo XML"
+    .panel-body
+      h3 Dados do Documento Fiscal:  
+      p = "Número da Série: "+@report.serie
+      .line.line-dashed.b-b.line-lg.pull-in
+      p = "Número da Nota Fiscal: "+@report.numero
+      .line.line-dashed.b-b.line-lg.pull-in
+      p = "Data e Hora de Emissão: "+@report.data_emissao.strftime("%d/%m/%Y %H:%M")
+      .line.line-dashed.b-b.line-lg.pull-in
+    .panel-body
+      h3 Dados do Emitente:  
+      / p = "Número da Série: "+@report.serie
+      / .line.line-dashed.b-b.line-lg.pull-in
+      / p = "Número da Nota Fiscal: "+@report.numero
+      / .line.line-dashed.b-b.line-lg.pull-in
+      / p = "Data e Hora de Emissão: "+@report.data_emissao
+      / .line.line-dashed.b-b.line-lg.pull-in
+      
+            
+              
+

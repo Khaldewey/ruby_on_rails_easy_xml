@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   }
   namespace :admin do
     resources :users
-
+    resources :reports
     get 'edit_password', to: 'users#edit_password',  as: :edit_password
     patch 'update_password', to: 'users#update_password',  as: :update_password
     

@@ -7,4 +7,31 @@
       = form.file_field :file, accept: 'application/xml'
     hr
     = form.submit "Enviar", class: "btn-xml"
-    
+- if @reports.present?    
+  h2 Relatórios
+  .panel.panel-default
+    .table-responsive
+      table.table.table-striped.b-t.b-light
+        thead
+          tr
+            th.text-center Número
+            th.text-center Série
+            th.text-center Emitente 
+            th.text-center Destinatário
+            th.text-center CNPJ Emitente 
+            th.text-center CNPJ Destinatário
+            th.text-center(width=210) Ações
+        tbody   
+          - @reports.each do |r|
+            tr
+              td.text-center= r.numero
+              td.text-center= r.serie 
+              td.text-center= r.fantasia_emitente
+              td.text-center= r.nome_destinatario
+              td.text-center= r.cnpj_emitente
+              td.text-center= r.cnpj_destinatario
+              td.text-center.links-actions
+                = link_to admin_report_path(r), class: "btn btn-info", title: 'Visualizar Relatório', data: { toggle: 'tooltip'} do
+                  = icon('far', 'eye') 
+                = link_to  admin_report_path(r), method: :delete, class: "btn btn-danger", title: 'Apagar', data: { confirm: 'Tem Certeza?', toggle: 'tooltip' } do
+                  = icon('far', 'trash-alt')
