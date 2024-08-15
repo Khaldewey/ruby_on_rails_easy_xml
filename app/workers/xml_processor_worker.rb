@@ -14,6 +14,7 @@ class XmlProcessorWorker
     ide = inf_nfe.at_xpath('nfe:ide', namespace)
     emit = inf_nfe.at_xpath('nfe:emit', namespace)
     dest = inf_nfe.at_xpath('nfe:dest', namespace)
+    
     dados_documento = {
       serie: ide.at_xpath('nfe:serie', namespace).text,
       nNF: ide.at_xpath('nfe:nNF', namespace).text,
@@ -41,7 +42,49 @@ class XmlProcessorWorker
           UF: dest.at_xpath('nfe:enderDest/nfe:UF', namespace).text
         }
       }
+    } 
+
+    produtos = []
+    totalizadores = {
+      vProd: 0,
+      vICMS: 0,
+      vIPI: 0,
+      vPIS: 0,
+      vCOFINS: 0
     }
+
+    inf_nfe.xpath('nfe:det', namespace).each do |det|
+      prod = det.at_xpath('nfe:prod', namespace)
+      imposto = det.at_xpath('nfe:imposto', namespace)
+      
+      produto_detalhes = {
+        nome: prod.at_xpath('nfe:xProd', namespace).text,
+        NCM: prod.at_xpath('nfe:NCM', namespace).text,
+        CFOP: prod.at_xpath('nfe:CFOP', namespace).text,
+        uCom: prod.at_xpath('nfe:uCom', namespace).text,
+        qCom: prod.at_xpath('nfe:qCom', namespace).text.to_f,
+        vUnCom: prod.at_xpath('nfe:vUnCom', namespace).text.to_f
+      }
+      
+      impostos = {
+        vICMS: imposto.at_xpath('nfe:ICMS/nfe:ICMS00/nfe:vICMS', namespace)&.text.to_f,
+        vIPI: imposto.at_xpath('nfe:IPI/nfe:IPITrib/nfe:vIPI', namespace)&.text.to_f,
+        vPIS: imposto.at_xpath('nfe:PIS/nfe:PISNT/nfe:CST', namespace)&.text.to_f,
+        vCOFINS: imposto.at_xpath('nfe:COFINS/nfe:COFINSNT/nfe:CST', namespace)&.text.to_f
+      } 
+
+
+      produtos << { produto: produto_detalhes, impostos: impostos }
+      
+      totalizadores[:vProd] += produto_detalhes[:qCom] * produto_detalhes[:vUnCom]
+      totalizadores[:vICMS] += impostos[:vICMS]
+      totalizadores[:vIPI] += impostos[:vIPI]
+      totalizadores[:vPIS] += impostos[:vPIS]
+      totalizadores[:vCOFINS] += impostos[:vCOFINS]
+    end
+
+    
+    totalizadores[:vNF] = totalizadores[:vProd] 
 
     # Depuração por logs
     puts "Dados do Documento Fiscal:"
@@ -56,7 +99,29 @@ class XmlProcessorWorker
     puts "Dados do Destinatário:"
     puts "  CNPJ: #{dados_documento[:destinatario][:CNPJ]}"
     puts "  Nome: #{dados_documento[:destinatario][:xNome]}"
-    puts "  Endereço: #{dados_documento[:destinatario][:endereco][:xLgr]}, #{dados_documento[:destinatario][:endereco][:nro]} - #{dados_documento[:destinatario][:endereco][:xBairro]}, #{dados_documento[:destinatario][:endereco][:xMun]}/#{dados_documento[:destinatario][:endereco][:UF]}"    
+    puts "  Endereço: #{dados_documento[:destinatario][:endereco][:xLgr]}, #{dados_documento[:destinatario][:endereco][:nro]} - #{dados_documento[:destinatario][:endereco][:xBairro]}, #{dados_documento[:destinatario][:endereco][:xMun]}/#{dados_documento[:destinatario][:endereco][:UF]}"
+    
+    produtos.each_with_index do |produto, index|
+      puts "Produto #{index + 1}:"
+      puts "  Nome: #{produto[:produto][:nome]}"
+      puts "  NCM: #{produto[:produto][:NCM]}"
+      puts "  CFOP: #{produto[:produto][:CFOP]}"
+      puts "  Unidade Comercializada: #{produto[:produto][:uCom]}"
+      puts "  Quantidade Comercializada: #{produto[:produto][:qCom]}"
+      puts "  Valor Unitário: #{produto[:produto][:vUnCom]}"
+      puts "  ICMS: #{produto[:impostos][:vICMS]}"
+      puts "  IPI: #{produto[:impostos][:vIPI]}"
+      puts "  PIS: #{produto[:impostos][:vPIS]}"
+      puts "  COFINS: #{produto[:impostos][:vCOFINS]}"
+    end
+
+    puts "Totalizadores:"
+    puts "  Valor Total dos Produtos: #{totalizadores[:vProd]}"
+    puts "  Valor Total do ICMS: #{totalizadores[:vICMS]}"
+    puts "  Valor Total do IPI: #{totalizadores[:vIPI]}"
+    puts "  Valor Total do PIS: #{totalizadores[:vPIS]}"
+    puts "  Valor Total do COFINS: #{totalizadores[:vCOFINS]}"
+    puts "  Valor Total da Nota Fiscal: #{totalizadores[:vNF]}"
       
     
   end
