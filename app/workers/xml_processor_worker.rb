@@ -3,7 +3,7 @@ require 'nokogiri'
 class XmlProcessorWorker
   include Sidekiq::Worker
 
-  def perform(file_path)
+  def perform(file_path, user_id)
     xml_file = File.read(file_path)
     document = Nokogiri::XML(xml_file)
     
@@ -121,7 +121,36 @@ class XmlProcessorWorker
     puts "  Valor Total do IPI: #{totalizadores[:vIPI]}"
     puts "  Valor Total do PIS: #{totalizadores[:vPIS]}"
     puts "  Valor Total do COFINS: #{totalizadores[:vCOFINS]}"
-    puts "  Valor Total da Nota Fiscal: #{totalizadores[:vNF]}"
+    puts "  Valor Total da Nota Fiscal: #{totalizadores[:vNF]}" 
+
+    
+     
+    report = Report.new(
+      serie: dados_documento[:serie],
+      numero: dados_documento[:nNF],
+      data_emissao: dados_documento[:dhEmi],
+      cnpj_emitente: dados_documento[:emitente][:CNPJ],
+      nome_emitente: dados_documento[:emitente][:xNome],
+      fantasia_emitente: dados_documento[:emitente][:xFant],
+      endereco_emitente: "#{dados_documento[:emitente][:endereco][:xLgr]}, #{dados_documento[:emitente][:endereco][:nro]} - #{dados_documento[:emitente][:endereco][:xBairro]}, #{dados_documento[:emitente][:endereco][:xMun]}/#{dados_documento[:emitente][:endereco][:UF]}",
+      cnpj_destinatario: dados_documento[:destinatario][:CNPJ],
+      nome_destinatario: dados_documento[:destinatario][:xNome],
+      endereco_destinatario: "#{dados_documento[:destinatario][:endereco][:xLgr]}, #{dados_documento[:destinatario][:endereco][:nro]} - #{dados_documento[:destinatario][:endereco][:xBairro]}, #{dados_documento[:destinatario][:endereco][:xMun]}/#{dados_documento[:destinatario][:endereco][:UF]}",
+      valor_total_produtos: totalizadores[:vProd],
+      valor_total_icms: totalizadores[:vICMS],
+      valor_total_ipi: totalizadores[:vIPI],
+      valor_total_pis: totalizadores[:vPIS],
+      valor_total_cofins: totalizadores[:vCOFINS],
+      valor_total_nota_fiscal: totalizadores[:vNF],
+      user_id: user_id,
+      products: produtos
+    )
+
+    if report.save
+      puts "Relatório salvo com sucesso!"
+    else
+      puts "Erro ao salvar o relatório: #{report.errors.full_messages.join(', ')}"
+    end
       
     
   end

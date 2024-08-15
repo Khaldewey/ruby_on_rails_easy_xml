@@ -10,10 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_13_222126) do
+ActiveRecord::Schema.define(version: 2024_08_15_170757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "reports", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "serie"
+    t.string "numero"
+    t.datetime "data_emissao"
+    t.string "cnpj_emitente"
+    t.string "nome_emitente"
+    t.string "fantasia_emitente"
+    t.string "endereco_emitente"
+    t.string "cnpj_destinatario"
+    t.string "nome_destinatario"
+    t.string "endereco_destinatario"
+    t.decimal "valor_total_produtos", precision: 15, scale: 2
+    t.decimal "valor_total_icms", precision: 15, scale: 2
+    t.decimal "valor_total_ipi", precision: 15, scale: 2
+    t.decimal "valor_total_pis", precision: 15, scale: 2
+    t.decimal "valor_total_cofins", precision: 15, scale: 2
+    t.decimal "valor_total_nota_fiscal", precision: 15, scale: 2
+    t.jsonb "products", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_reports_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +51,5 @@ ActiveRecord::Schema.define(version: 2024_08_13_222126) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "reports", "users"
 end
