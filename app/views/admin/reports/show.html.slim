@@ -1,8 +1,15 @@
 section.panel.panel-default
     header.panel-heading.font-bold
-     = "Detalhes do arquivo XML"
+     .panel-body
+        .search-form 
+          .row
+            .col-md-3
+              label Buscar por Informação:
+              = text_field_tag :query, nil, class: 'form-control', placeholder: 'EX: CFOP, NCM, COFINS, ICMS ...  ', id: 'search-input'
+            .col-md-1.mt-25  
+              = button_tag "Buscar", class: 'btn btn-primary', id: 'search-button'
     .panel-body
-      h3 Dados do Documento Fiscal:  
+      h4.text-center Dados do Documento Fiscal  
       p = "Número da Série: "+@report.serie
       .line.line-dashed.b-b.line-lg.pull-in
       p = "Número da Nota Fiscal: "+@report.numero
@@ -10,14 +17,64 @@ section.panel.panel-default
       p = "Data e Hora de Emissão: "+@report.data_emissao.strftime("%d/%m/%Y %H:%M")
       .line.line-dashed.b-b.line-lg.pull-in
     .panel-body
-      h3 Dados do Emitente:  
-      / p = "Número da Série: "+@report.serie
-      / .line.line-dashed.b-b.line-lg.pull-in
-      / p = "Número da Nota Fiscal: "+@report.numero
-      / .line.line-dashed.b-b.line-lg.pull-in
-      / p = "Data e Hora de Emissão: "+@report.data_emissao
-      / .line.line-dashed.b-b.line-lg.pull-in
-      
+      h4.text-center Dados do Emitente  
+      p = "CNPJ: "+@report.cnpj_emitente
+      .line.line-dashed.b-b.line-lg.pull-in
+      p = "Nome: "+@report.nome_emitente
+      .line.line-dashed.b-b.line-lg.pull-in
+      p = "Fantasia: "+@report.fantasia_emitente
+      .line.line-dashed.b-b.line-lg.pull-in
+      p = "Endereço: "+@report.endereco_emitente
+      .line.line-dashed.b-b.line-lg.pull-in
+    .panel-body
+      h4.text-center Dados do Destinatário  
+      p = "CNPJ: "+@report.cnpj_destinatario
+      .line.line-dashed.b-b.line-lg.pull-in
+      p = "Nome: "+@report.nome_destinatario
+      .line.line-dashed.b-b.line-lg.pull-in
+      p = "Endereço: "+@report.endereco_destinatario
+      .line.line-dashed.b-b.line-lg.pull-in
+    .panel-body
+    h4.text-center Produtos  
+    - @report.products.each_with_index do |produto, index|
+      .panel.panel-info
+        .panel-heading
+          h5 = "Produto #{index + 1}:"
+        .panel-body
+          p = "Nome: " + produto["produto"]["nome"]
+          .line.line-dashed.b-b.line-lg.pull-in
+          p = "NCM: " + produto["produto"]["NCM"]
+          .line.line-dashed.b-b.line-lg.pull-in
+          p = "CFOP: " + produto["produto"]["CFOP"]
+          .line.line-dashed.b-b.line-lg.pull-in
+          p = "Unidade Comercializada: " + produto["produto"]["uCom"]
+          .line.line-dashed.b-b.line-lg.pull-in
+          p = "Quantidade Comercializada: " + produto["produto"]["qCom"].to_s
+          .line.line-dashed.b-b.line-lg.pull-in
+          p = "Valor Unitário: " + produto["produto"]["vUnCom"].to_s
+          .line.line-dashed.b-b.line-lg.pull-in
+          p = "ICMS: " + produto["impostos"]["vICMS"].to_s
+          .line.line-dashed.b-b.line-lg.pull-in
+          p = "IPI: " + produto["impostos"]["vIPI"].to_s
+          .line.line-dashed.b-b.line-lg.pull-in
+          p = "PIS: " + produto["impostos"]["vPIS"].to_s
+          .line.line-dashed.b-b.line-lg.pull-in
+          p = "COFINS: " + produto["impostos"]["vCOFINS"].to_s
+          .line.line-dashed.b-b.line-lg.pull-in 
+    .panel-body
+      h4.text-center Totalizadores
+      p = "Valor Total dos Produtos: R$ " + number_to_currency(@report.valor_total_produtos, unit: "", format: "%n", precision: 2)
+      .line.line-dashed.b-b.line-lg.pull-in
+      p = "Valor Total do ICMS: R$ " + number_to_currency(@report.valor_total_icms, unit: "", format: "%n", precision: 2)
+      .line.line-dashed.b-b.line-lg.pull-in
+      p = "Valor Total do IPI: R$ " + number_to_currency(@report.valor_total_ipi, unit: "", format: "%n", precision: 2)
+      .line.line-dashed.b-b.line-lg.pull-in
+      p = "Valor Total do PIS: R$ " + number_to_currency(@report.valor_total_pis, unit: "", format: "%n", precision: 2)
+      .line.line-dashed.b-b.line-lg.pull-in
+      p = "Valor Total do COFINS: R$ " + number_to_currency(@report.valor_total_cofins, unit: "", format: "%n", precision: 2)
+      .line.line-dashed.b-b.line-lg.pull-in
+      p = "Valor Total da Nota Fiscal: R$ " + number_to_currency(@report.valor_total_nota_fiscal, unit: "", format: "%n", precision: 2)
+      .line.line-dashed.b-b.line-lg.pull-in  
             
               
 

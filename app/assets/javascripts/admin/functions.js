@@ -86,4 +86,46 @@ $(function() {
 
   if($('.alert').text() !== "") 
     toastr.error($('.alert').text(), "Fail!", options); 
+  
+  const $searchInput = $('#search-input');
+  const $searchButton = $('#search-button');
+
+  $searchButton.on('click', function(event) {
+    event.preventDefault();
+    const query = $searchInput.val().trim().toLowerCase();
+
+    if (query !== "") {
+      
+      removeHighlight();
+      highlightText(query);
+      scrollToFirstHighlight();
+    }
+  });
+
+  function highlightText(query) {
+    const $contentElements = $('.panel-body p, .panel-body h4, .panel-body h5');
+    $contentElements.each(function() {
+      const $element = $(this);
+      const text = $element.text().toLowerCase();
+      if (text.includes(query)) {
+        const regex = new RegExp(`(${query})`, "gi");
+        $element.html($element.text().replace(regex, "<span class='highlight'>$1</span>"));
+      }
+    });
+  }
+
+  function removeHighlight() {
+    $('.highlight').each(function() {
+      $(this).replaceWith($(this).text());
+    });
+  }
+
+  function scrollToFirstHighlight() {
+    const $firstHighlight = $('.highlight').first();
+    if ($firstHighlight.length) {
+      $('html, body').animate({
+        scrollTop: $firstHighlight.offset().top - 20 
+      }, 600); 
+    }
+  }
 });
