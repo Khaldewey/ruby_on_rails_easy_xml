@@ -85,5 +85,5 @@ $(function() {
     toastr.success($('.notice').text(), "Success!", options);  
 
   if($('.alert').text() !== "") 
-    toastr.error($('.alert').text(), "Fail!", options);
+    toastr.error($('.alert').text(), "Fail!", options); 
 });

@@ -78,7 +78,12 @@ gem 'tzinfo-data'
 
 gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '3543363026121ee28d98dfce4cb6366980c055ee'
 
-gem 'bootsnap', require: false
+gem 'bootsnap', require: false 
+
+# após bundle executar o comando: rails generate sidekiq:worker <Nome do Job>
+# no application.rb colocar -> config.active_job.queue_adapter = :sidekiq
+# no initializer sidekiq colocar as configurações do servidor redis
+gem 'sidekiq'
 
 
 group :development do

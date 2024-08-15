@@ -15,7 +15,8 @@ Rails.application.routes.draw do
     resources :documents, only: [:upload] do
       collection do
         post :upload
-      end
+      end 
+      
     end
    
     root to: 'documents#index' 

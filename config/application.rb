@@ -34,6 +34,9 @@ module EasyXml
 
     config.autoload_paths += %W(#{config.root}/app/models/ckeditor)    
 
-    config.exceptions_app = self.routes
+    config.exceptions_app = self.routes 
+    
+    #Ativar configuração do sidekiq
+    config.active_job.queue_adapter = :sidekiq
   end
 end
