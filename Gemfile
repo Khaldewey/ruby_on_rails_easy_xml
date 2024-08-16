@@ -83,7 +83,10 @@ gem 'bootsnap', require: false
 # após bundle executar o comando: rails generate sidekiq:worker <Nome do Job>
 # no application.rb colocar -> config.active_job.queue_adapter = :sidekiq
 # no initializer sidekiq colocar as configurações do servidor redis
-gem 'sidekiq'
+gem 'sidekiq' 
+
+gem 'rubyXL'
+
 
 
 group :development do

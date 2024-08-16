@@ -2,8 +2,12 @@ h2.text-center Dashboard
 
 = form_with url: upload_admin_documents_path, local: true, html: { multipart: true, :class => 'form-horizontal'} do |form|
   section.panel.panel-default.dashboard
-    .panel-body  
+    .panel-body
+      label = "XML"   
       = form.file_field :file, accept: 'application/xml'
+    .panel-body 
+      label = "Zip com XML's" 
+      = form.file_field :zip, accept: '.zip'
     .panel-body 
       span.i-s.i-s-2x.pull-left.m-r-sm
         .text-success
@@ -11,6 +15,12 @@ h2.text-center Dashboard
       span.clear
         span.h3.block.m-t-xs.text-success= @reports_count
         small.text-muted.text-u-c Relatórios
+    .panel-body
+      span.clear
+        pan.h3.block.m-t-xs.text-success= "Listagem"
+        small.text-muted.text-u-c Excel
+      = link_to admin_download_export_excel_path, class: "btn btn-success" do 
+        = icon('fas', 'download')
   = form.submit "Enviar", class: "btn-primary"
 
 
@@ -67,6 +77,8 @@ h2.text-center Dashboard
                 = link_to admin_report_path(r), class: "btn btn-info", title: 'Visualizar Relatório', data: { toggle: 'tooltip'} do
                   = icon('far', 'eye') 
                 = link_to  admin_report_path(r), method: :delete, class: "btn btn-danger", title: 'Apagar', data: { confirm: 'Tem Certeza?', toggle: 'tooltip' } do
-                  = icon('far', 'trash-alt') 
+                  = icon('far', 'trash-alt')
+                = link_to admin_download_xls_report_path(id: r.id), class: "btn btn-success" do 
+                 = icon('fas', 'download')
     .text-center
       = will_paginate(@reports, renderer: 'ApplicationHelper::LinkRenderer', class: 'pagination pagination-lg')
