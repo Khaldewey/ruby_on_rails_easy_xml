@@ -85,45 +85,7 @@ class XmlProcessorWorker
 
     
     totalizadores[:vNF] = totalizadores[:vProd] 
-
-    # Depuração por logs
-    puts "Dados do Documento Fiscal:"
-    puts "Número da Série: #{dados_documento[:serie]}"
-    puts "Número da Nota Fiscal: #{dados_documento[:nNF]}"
-    puts "Data e Hora de Emissão: #{dados_documento[:dhEmi]}"
-    puts "Dados do Emitente:"
-    puts "  CNPJ: #{dados_documento[:emitente][:CNPJ]}"
-    puts "  Nome: #{dados_documento[:emitente][:xNome]}"
-    puts "  Fantasia: #{dados_documento[:emitente][:xFant]}"
-    puts "  Endereço: #{dados_documento[:emitente][:endereco][:xLgr]}, #{dados_documento[:emitente][:endereco][:nro]} - #{dados_documento[:emitente][:endereco][:xBairro]}, #{dados_documento[:emitente][:endereco][:xMun]}/#{dados_documento[:emitente][:endereco][:UF]}"
-    puts "Dados do Destinatário:"
-    puts "  CNPJ: #{dados_documento[:destinatario][:CNPJ]}"
-    puts "  Nome: #{dados_documento[:destinatario][:xNome]}"
-    puts "  Endereço: #{dados_documento[:destinatario][:endereco][:xLgr]}, #{dados_documento[:destinatario][:endereco][:nro]} - #{dados_documento[:destinatario][:endereco][:xBairro]}, #{dados_documento[:destinatario][:endereco][:xMun]}/#{dados_documento[:destinatario][:endereco][:UF]}"
-    
-    produtos.each_with_index do |produto, index|
-      puts "Produto #{index + 1}:"
-      puts "  Nome: #{produto[:produto][:nome]}"
-      puts "  NCM: #{produto[:produto][:NCM]}"
-      puts "  CFOP: #{produto[:produto][:CFOP]}"
-      puts "  Unidade Comercializada: #{produto[:produto][:uCom]}"
-      puts "  Quantidade Comercializada: #{produto[:produto][:qCom]}"
-      puts "  Valor Unitário: #{produto[:produto][:vUnCom]}"
-      puts "  ICMS: #{produto[:impostos][:vICMS]}"
-      puts "  IPI: #{produto[:impostos][:vIPI]}"
-      puts "  PIS: #{produto[:impostos][:vPIS]}"
-      puts "  COFINS: #{produto[:impostos][:vCOFINS]}"
-    end
-
-    puts "Totalizadores:"
-    puts "  Valor Total dos Produtos: #{totalizadores[:vProd]}"
-    puts "  Valor Total do ICMS: #{totalizadores[:vICMS]}"
-    puts "  Valor Total do IPI: #{totalizadores[:vIPI]}"
-    puts "  Valor Total do PIS: #{totalizadores[:vPIS]}"
-    puts "  Valor Total do COFINS: #{totalizadores[:vCOFINS]}"
-    puts "  Valor Total da Nota Fiscal: #{totalizadores[:vNF]}" 
-
-    
+ 
      
     report = Report.new(
       serie: dados_documento[:serie],
