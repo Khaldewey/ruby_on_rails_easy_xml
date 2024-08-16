@@ -12,7 +12,7 @@ section.panel.panel-default
               = link_to admin_root_path, class: "btn btn-danger" do 
                 = icon('fas', 'arrow-left')             
     .panel-body
-      h4.text-center Dados do Documento Fiscal  
+      h4 Dados do Documento Fiscal  
       p = "Número da Série: "+@report.serie
       .line.line-dashed.b-b.line-lg.pull-in
       p = "Número da Nota Fiscal: "+@report.numero
@@ -20,7 +20,7 @@ section.panel.panel-default
       p = "Data e Hora de Emissão: "+@report.data_emissao.strftime("%d/%m/%Y %H:%M")
       .line.line-dashed.b-b.line-lg.pull-in
     .panel-body
-      h4.text-center Dados do Emitente  
+      h4 Dados do Emitente  
       p = "CNPJ: "+@report.cnpj_emitente
       .line.line-dashed.b-b.line-lg.pull-in
       p = "Nome: "+@report.nome_emitente
@@ -30,7 +30,7 @@ section.panel.panel-default
       p = "Endereço: "+@report.endereco_emitente
       .line.line-dashed.b-b.line-lg.pull-in
     .panel-body
-      h4.text-center Dados do Destinatário  
+      h4 Dados do Destinatário  
       p = "CNPJ: "+@report.cnpj_destinatario
       .line.line-dashed.b-b.line-lg.pull-in
       p = "Nome: "+@report.nome_destinatario
