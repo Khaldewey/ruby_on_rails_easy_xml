@@ -138,6 +138,6 @@ $(function() {
     
     setTimeout(function() {
       window.location.href = newUrl;
-    }, 500); 
+    }, 5000); 
   }
 });
