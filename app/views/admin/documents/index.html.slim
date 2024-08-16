@@ -1,28 +1,61 @@
-
+h2.text-center Dashboard
 
 = form_with url: upload_admin_documents_path, local: true, html: { multipart: true, :class => 'form-horizontal'} do |form|
-  section.xml-input
+  section.panel.panel-default.dashboard
     .panel-body  
-      = form.label :file, "Escolha o arquivo XML"
       = form.file_field :file, accept: 'application/xml'
-    hr
-    = form.submit "Enviar", class: "btn-xml"
+    .panel-body 
+      span.i-s.i-s-2x.pull-left.m-r-sm
+        .text-success
+          = icon('fas', 'book')
+      span.clear
+        span.h3.block.m-t-xs.text-success= @reports_count
+        small.text-muted.text-u-c Relatórios
+  = form.submit "Enviar", class: "btn-primary"
+
+
 - if @reports.present?    
-  h2 Relatórios
-  .panel.panel-default
+  h2.text-center Relatórios
+  .panel.panel-default 
+    .panel-body
+      = simple_form_for :search, url: admin_search_report_path, html: {class: 'search-form'}, method: :get do |f|
+        .row
+          .col-md-3
+            = f.label :numero, label: 'Número', required: false
+            = f.input_field :numero, class: 'col-md-12 form-control'
+          .col-md-3
+            = f.label :serie, label: 'Série', required: false
+            = f.input_field :serie, class: 'col-md-12 form-control'
+          .col-md-3
+            = f.label :fantasia_emitente, label: 'Emitente', required: false
+            = f.input_field :fantasia_emitente, class: 'col-md-12 form-control'
+          .col-md-3
+            = f.label :nome_destinatario, label: 'Destinatário', required: false
+            = f.input_field :nome_destinatario, class: 'col-md-12 form-control' 
+          .col-md-3
+            = f.label :cnpj_emitente, label: 'CNPJ Emitente', required: false
+            = f.input_field :cnpj_emitente, class: 'col-md-12 form-control' 
+          .col-md-3
+            = f.label :cnpj_destinatario, label: 'CNPJ Destinatário', required: false
+            = f.input_field :cnpj_destinatario, class: 'col-md-12 form-control'
+          .col-md-1.mt-25
+            = f.submit 'Buscar', class: 'btn btn-primary'
+          .col-md-1.mt-25
+            = link_to 'Limpar Busca', admin_root_path, class: 'btn btn-warning' 
+  .panel.panel-default 
     .table-responsive
       table.table.table-striped.b-t.b-light
         thead
           tr
-            th.text-center Número
-            th.text-center Série
-            th.text-center Emitente 
-            th.text-center Destinatário
-            th.text-center CNPJ Emitente 
-            th.text-center CNPJ Destinatário
+            th.text-center = link_to " ⇧⇩ | Número", admin_root_path(sort: :numero)   
+            th.text-center = link_to "⇧⇩ | Série" , admin_root_path(sort: :serie) 
+            th.text-center = link_to "A-Z ⇧⇩ | Emitente " , admin_root_path(sort: :fantasia_emitente)
+            th.text-center = link_to "A-Z ⇧⇩ | Destinatário", admin_root_path(sort: :nome_destinatario)
+            th.text-center = link_to "⇧⇩ | CNPJ Emitente" , admin_root_path(sort: :cnpj_emitente)
+            th.text-center = link_to "⇧⇩ | CNPJ Destinatário", admin_root_path(sort: :cnpj_destinatario)
             th.text-center(width=210) Ações
         tbody   
-          - @reports.each do |r|
+          - @reports.order(params[:sort]).each do |r|
             tr
               td.text-center= r.numero
               td.text-center= r.serie 
@@ -34,4 +67,6 @@
                 = link_to admin_report_path(r), class: "btn btn-info", title: 'Visualizar Relatório', data: { toggle: 'tooltip'} do
                   = icon('far', 'eye') 
                 = link_to  admin_report_path(r), method: :delete, class: "btn btn-danger", title: 'Apagar', data: { confirm: 'Tem Certeza?', toggle: 'tooltip' } do
-                  = icon('far', 'trash-alt')
+                  = icon('far', 'trash-alt') 
+    .text-center
+      = will_paginate(@reports, renderer: 'ApplicationHelper::LinkRenderer', class: 'pagination pagination-lg')

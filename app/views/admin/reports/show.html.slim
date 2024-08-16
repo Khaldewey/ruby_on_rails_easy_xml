@@ -6,8 +6,11 @@ section.panel.panel-default
             .col-md-3
               label Buscar por Informação:
               = text_field_tag :query, nil, class: 'form-control', placeholder: 'EX: CFOP, NCM, COFINS, ICMS ...  ', id: 'search-input'
-            .col-md-1.mt-25  
+            .col-md-7.mt-25  
               = button_tag "Buscar", class: 'btn btn-primary', id: 'search-button'
+            .col-md-1.mt-25  
+              = link_to admin_root_path, class: "btn btn-danger" do 
+                = icon('fas', 'arrow-left')             
     .panel-body
       h4.text-center Dados do Documento Fiscal  
       p = "Número da Série: "+@report.serie
@@ -76,5 +79,5 @@ section.panel.panel-default
       p = "Valor Total da Nota Fiscal: R$ " + number_to_currency(@report.valor_total_nota_fiscal, unit: "", format: "%n", precision: 2)
       .line.line-dashed.b-b.line-lg.pull-in  
             
-              
+
 

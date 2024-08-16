@@ -11,9 +11,11 @@ class Admin::ApplicationController < ActionController::Base
   before_action :defaults, :authenticate_user!
   layout 'admin'
 
-  WillPaginate.per_page = 10
+  WillPaginate.per_page = 5
 
   def defaults
-    
+    if current_user.present?
+     @reports_count = Report.where(user_id: current_user.id).count
+    end
   end
 end

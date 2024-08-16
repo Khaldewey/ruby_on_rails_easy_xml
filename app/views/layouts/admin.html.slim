@@ -36,7 +36,7 @@ html lang="pt-BR"
               ul.dropdown-menu.animated.fadeInRight
                 li
                   = link_to "Logout", destroy_user_session_path, :method => :delete, :data => { :toggle => "ajaxModal"}
-                - if current_user.id != 1
+                - if current_user.email != "desenvolvimento@easy.xml"
                   li
                     = link_to "Editar Senha", admin_edit_password_path
                 
@@ -54,7 +54,7 @@ html lang="pt-BR"
                         = icon('fas', 'tachometer-alt')
                         span.font-bold Dashboard
 
-                      - unless current_user.id != 1
+                      - unless current_user.email != "desenvolvimento@easy.xml"
                         = nav_link_to admin_users_path, {:class => 'menu_link'}, {:wrapper => 'li', :wrapper_class => 'item_menu', :selected_class => 'active', :url_segment => 2 }
                           = icon('far', 'user')
                           span.font-bold Usuários

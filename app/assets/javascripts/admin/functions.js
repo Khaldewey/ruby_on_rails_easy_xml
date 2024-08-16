@@ -127,5 +127,17 @@ $(function() {
         scrollTop: $firstHighlight.offset().top - 20 
       }, 600); 
     }
+  } 
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const flag = urlParams.get('flag');
+
+  if (flag === 'true') {
+    urlParams.delete('flag');
+    const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+    
+    setTimeout(function() {
+      window.location.href = newUrl;
+    }, 500); 
   }
 });

@@ -6,8 +6,7 @@ h2 Usuários
         tr
           th.text-center E-mail
           th.text-center(width=210) Ações
-      tbody
-        - collection = current_user.id != 1 ? User.where.not(id: 1) : User.all    
+      tbody    
         - collection.each do |r|
           tr
             td.text-center= r.email
