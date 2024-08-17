@@ -14,8 +14,6 @@ gem 'rails', '5.2.0'
 
 gem 'turbolinks', '~> 5' 
 
-gem 'wdm', '>= 0.1.0'
-
 # gem 'rails-i18n', '~> 5.1', '>= 5.1.3'
 
 # Use SCSS for stylesheets
@@ -95,6 +93,7 @@ group :development do
   gem 'dedent'
   gem 'bullet'
   gem 'rspec-rails', '~> 5.0'
+  gem 'wdm', '>= 0.1.0' if Gem.win_platform?
 end 
 
 group :test do
