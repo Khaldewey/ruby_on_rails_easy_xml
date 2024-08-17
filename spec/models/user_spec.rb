@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   it 'é válido com atributos válidos'do
-    user = User.new(email:'teste@exemplo.com', password:'senha123')
+    user = User.new(email:'testezinho@exemplo.com', password:'senha123')
     expect(user).to be_valid
   end
 

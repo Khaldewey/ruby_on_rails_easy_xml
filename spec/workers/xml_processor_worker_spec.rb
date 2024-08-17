@@ -3,8 +3,8 @@ require'sidekiq/testing'
 Sidekiq::Testing.inline!
 
 RSpec.describe XmlProcessorWorker, type: :worker do
-  describe '#perform' do
-    let(:user) { create(:user) }
+  describe 'perform' do
+    let(:user) { User.create(id:2, email:'test@example.com', password:'123456789') }
     let(:file_path) { 'spec/fixtures/files/sample.xml' }
 
     before do
@@ -79,7 +79,7 @@ RSpec.describe XmlProcessorWorker, type: :worker do
       )
     end
     
-    after do# Remove o arquivo após o teste
+    after do
       File.delete(file_path) if File.exist?(file_path)
     end
 
@@ -91,7 +91,7 @@ RSpec.describe XmlProcessorWorker, type: :worker do
       report = Report.last
       expect(report.serie).to eq('1')
       expect(report.numero).to eq('12345')
-      expect(report.data_emissao).to eq('2024-08-16T10:00:00')
+      expect(report.data_emissao).to eq(Time.parse('2024-08-16T10:00:00'))
       expect(report.cnpj_emitente).to eq('12345678000195')
       expect(report.nome_emitente).to eq('Empresa Emitente')
       expect(report.fantasia_emitente).to eq('Fantasia Emitente')
@@ -107,7 +107,7 @@ RSpec.describe XmlProcessorWorker, type: :worker do
       expect(report.valor_total_nota_fiscal).to eq(1000.00)
 
       expect(report.products.size).to eq(1)
-      expect(report.products.first[:produto][:nome]).to eq('Produto 1')
+      expect(report.products.first["produto"]["nome"]).to eq('Produto 1')
     end
 
     it 'exibe uma mensagem de erro caso o relatório não seja salvo corretamente'do
