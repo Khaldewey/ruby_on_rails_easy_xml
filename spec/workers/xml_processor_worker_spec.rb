@@ -91,7 +91,7 @@ RSpec.describe XmlProcessorWorker, type: :worker do
       report = Report.last
       expect(report.serie).to eq('1')
       expect(report.numero).to eq('12345')
-      expect(report.data_emissao).to eq(Time.parse('2024-08-16T10:00:00'))
+      expect(report.data_emissao).to eq(Time.parse('2024-08-16T10:00:00').utc)
       expect(report.cnpj_emitente).to eq('12345678000195')
       expect(report.nome_emitente).to eq('Empresa Emitente')
       expect(report.fantasia_emitente).to eq('Fantasia Emitente')
