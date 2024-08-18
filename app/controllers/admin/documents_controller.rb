@@ -56,10 +56,9 @@ class Admin::DocumentsController < Admin::ApplicationController
      flash[:alert] = "Forbidden empty field."
      redirect_to admin_root_path
     end 
-
-    
-
   end 
+
+
 
   def download_xls
     @report = Report.find(params[:id])

@@ -1,7 +1,0 @@
-{
-  "name": "easy_xml",
-  "private": true,
-  "dependencies": {
-    "easy_xml": "file:"
-  }
-}
