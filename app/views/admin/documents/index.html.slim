@@ -9,15 +9,14 @@ h2.text-center Dashboard
       label = "Zip com XML's" 
       = form.file_field :zip, accept: '.zip'
     .panel-body 
-      span.i-s.i-s-2x.pull-left.m-r-sm
-        .text-success
-          = icon('fas', 'book')
-      span.clear
         span.h3.block.m-t-xs.text-success= @reports_count
-        small.text-muted.text-u-c Relatórios
+        small.text-muted.text-u-c XML's
+        span.i-s.i-s-2x.pull-left.m-r-sm
+          .text-success
+            = icon('fas', 'book')
     .panel-body
       span.clear
-        pan.h3.block.m-t-xs.text-success= "Listagem"
+        span.h3.block.m-t-xs.text-success= "Listagem"
         small.text-muted.text-u-c Excel
       = link_to admin_download_export_excel_path, class: "btn btn-success" do 
         = icon('fas', 'download')
